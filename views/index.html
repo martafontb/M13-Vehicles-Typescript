@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <script src="../models/car.js"></script>
+    <script src="../models/wheel.js"></script>
+    <script src="../controllers/controller.js"></script>
+    
+</head>
+<body>  
+    <div id="container" class="container mt-5">
+        <div class="title">
+          <h1>Car form</h1>
+        </div>
+    
+        <form id="formCar">
+            <div class="form-row">
+                <div class="form-group col">
+                <label for="plate">Plate</label>
+                <input type="text" id="plate" class="form-control">
+                <div class="invalid-feedback" id="errorPlate"></div>
+                </div>
+                <div class="form-group col">
+                <label for="brand">Brand</label>
+                <input type="text" id="brand" class="form-control">
+                <div class="invalid-feedback" id="errorBrand"></div>
+                </div>
+                <div class="form-group col">
+                <label for="color">Color</label>
+                <input type="text" id="color" class="form-control">
+                <div class="invalid-feedback" id="errorColor"></div>
+                </div>
+            </div>
+            <button type="button" class="button btn btn-primary mt-3" onclick="return createCar()">Create Car</button>
+        </form>
+    </div>
+    <div id="infoCar" class="row bg-white mt-4 mx-1 d-none d-flex justify-content-around">
+    </div>
+
+
+    <div id="formcontainer" class="container">
+            <form class="form-row d-none mt-5" id="formWheels">
+                <div class="form-group col-6">
+                  <p class="font-weight-bold text-center text-uppercase">Wheel 1</p>
+                  <input type="text" name="wheelBrand1" id="wheelBrand1" class="form-control my-2" placeholder="Brand">
+                  <div class="invalid-feedback" id="errorwheelBrand1"></div>
+                  <input type="text" name="wheelDiam1" id="wheelDiam1" class="form-control my-2" placeholder="Diameter">
+                  <div class="invalid-feedback" id="errorwheelDiam1"></div>
+                </div>
+                <div class="form-group col-6">
+                  <p class="font-weight-bold text-center text-uppercase">Wheel 2</p>
+                  <input type="text" name="wheelBrand2" id="wheelBrand2" class="form-control my-2" placeholder="Brand">
+                  <div class="invalid-feedback" id="errorwheelBrand2"></div>
+                  <input type="text" name="wheelDiam2" id="wheelDiam2" class="form-control my-2" placeholder="Diameter">
+                  <div class="invalid-feedback" id="errorwheelDiam2"></div>
+                </div>
+                <div class="form-group col-6">
+                  <p class="font-weight-bold text-center text-uppercase">Wheel 3</p>
+                  <input type="text" name="wheelBrand3" id="wheelBrand3" class="form-control my-2" placeholder="Brand">
+                  <div class="invalid-feedback" id="errorwheelBrand3"></div>
+                  <input type="text" name="wheelDiam3" id="wheelDiam3" class="form-control my-2" placeholder="Diameter">
+                  <div class="invalid-feedback" id="errorwheelDiam3"></div>
+                </div>
+                <div class="form-group col-6">
+                  <p class="font-weight-bold text-center text-uppercase">Wheel 4</p>
+                  <input type="text" name="wheelBrand4" id="wheelBrand4" class="form-control my-2" placeholder="Brand">
+                  <div class="invalid-feedback" id="errorwheelBrand4"></div>
+                  <input type="text" name="wheelDiam4" id="wheelDiam4" class="form-control my-2" placeholder="Diameter">
+                  <div class="invalid-feedback" id="errorwheelDiam4"></div>
+                </div>
+                <button type="button" onclick="return addWheels()" class="button btn btn-primary mt-3">
+                  Check wheels
+                </button>
+              </form>
+            <div id="infoWheels" class="row bg-white mt-4 mx-1 d-none">
+            </div>
+    </div>
+
+    </body>
+</html>
+
