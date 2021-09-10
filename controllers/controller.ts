@@ -1,8 +1,5 @@
 let car: Car;
 
-let infoCar = <HTMLElement>document.getElementById('infoCar');
-let infoWheels = <HTMLElement>document.getElementById('infoWheels');
-
 function createCar() {
     //dom element definition
     let plate:string=(<HTMLInputElement>document.getElementById("plate")).value;
@@ -73,9 +70,6 @@ function validateCar(plate:string,brand:string,color:string) {
 
 
 function addWheels() {
-    infoWheels.innerHTML = "";
-    infoWheels.classList.remove("d-none");
-
     let checkWheels: boolean = false;
 
     for (let i = 1; i <= 4; i++) { 
@@ -93,9 +87,11 @@ function addWheels() {
         for (let i = 1; i <= 4; i++) {
             let wheelDiameter = (<HTMLInputElement>document.getElementById('wheelDiam' + [i])).value;
             let wheelBrand = (<HTMLInputElement>document.getElementById('wheelBrand' + [i])).value; 
-            let diameterValue = Number(wheelDiameter); // OJO DUPLICAT!!
+            let diameterValue = Number(wheelDiameter); 
             car.addWheel(new Wheel(diameterValue, wheelBrand));
+            let infoWheels = <HTMLElement>document.getElementById('infoWheels');
             infoWheels.innerHTML = `<p class="col-12 pt-3 font-weight-bold text-center text-success">ALL WHELLS HAVE BEEN SUCCESSFULLY ADDED</p>`;
+            infoWheels.classList.remove("d-none");
         }
         console.log(car);
     }

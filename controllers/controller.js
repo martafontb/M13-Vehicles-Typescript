@@ -51,8 +51,6 @@ function validateCar(plate, brand, color) {
     }
 }
 function addWheels() {
-    infoWheels.innerHTML = "";
-    infoWheels.classList.remove("d-none");
     var checkWheels = false;
     for (var i = 1; i <= 4; i++) {
         var wheelDiameter = document.getElementById('wheelDiam' + [i]).value;
@@ -69,7 +67,9 @@ function addWheels() {
             var wheelBrand = document.getElementById('wheelBrand' + [i]).value;
             var diameterValue = Number(wheelDiameter); // OJO DUPLICAT!!
             car.addWheel(new Wheel(diameterValue, wheelBrand));
-            infoWheels.innerHTML = "<p class=\"col-12 pt-3 font-weight-bold text-center text-success\">ALL WHELLS HAVE BEEN SUCCESSFULLY ADDED</p>";
+            var infoWheels_1 = document.getElementById('infoWheels');
+            infoWheels_1.innerHTML = "<p class=\"col-12 pt-3 font-weight-bold text-center text-success\">ALL WHELLS HAVE BEEN SUCCESSFULLY ADDED</p>";
+            infoWheels_1.classList.remove("d-none");
         }
         console.log(car);
     }
