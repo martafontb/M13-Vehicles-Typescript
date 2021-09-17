@@ -18,8 +18,19 @@ function createCar() {
         <p class="pt-3"><span class="font-weight-bold">Brand:</span> ${brand}</p>
         <p class="pt-3"><span class="font-weight-bold">Color:</span> ${color}</p>`;
 
-        let formWheels = <HTMLElement>document.getElementById('formWheels');
+        let formWheels = <HTMLFormElement>document.getElementById('formWheels');
         formWheels.classList.remove("d-none");
+
+        let formCar = (<HTMLFormElement>document.getElementById("formCar"));
+        formCar.reset();
+
+        let inputs = Array.from(formCar.querySelectorAll("input"));
+        inputs.forEach(function(input){
+            if(input.classList.contains("is-invalid")){
+                input.classList.remove("is-invalid");
+                
+            }
+        })
     }
 }
 
@@ -27,31 +38,25 @@ function createCar() {
 function validateCar(plate:string,brand:string,color:string) {
   
     let error:number = 0;
-    let formCar = (<HTMLFormElement>document.getElementById("formCar"));
-    // form.classList.remove('is-invalid');
-  
+
+    //4 numeros i tres lletres
+    let plate1:any =/^(\d{4})([a-zA-Z]{3})$/
+
     if(plate==""){
         (<HTMLInputElement>document.getElementById("plate")).classList.add("is-invalid"); 
         (<HTMLElement>document.getElementById("errorPlate")).textContent = "Plate is required";
         error++;
-    }
-    
-    //4 numeros i tres lletres
-    let plate1:any =/^(\d{4})([a-zA-Z]{3})$/
-
-    if(!plate1.test(plate)){
+    } else if (!plate1.test(plate)) {
         (<HTMLInputElement>document.getElementById("plate")).classList.add("is-invalid"); 
         (<HTMLElement>document.getElementById("errorPlate")).textContent = "Plate must have 4 numbers & 3 letters";
         error++;
-    } 
-
+    }
 
     if(brand==""){
         (<HTMLInputElement>document.getElementById("brand")).classList.add("is-invalid"); 
         (<HTMLElement>document.getElementById("errorBrand")).textContent = "Brand is required";
         error++;
     }
-
 
     if(color==""){
         (<HTMLInputElement>document.getElementById("color")).classList.add("is-invalid"); 
@@ -65,7 +70,6 @@ function validateCar(plate:string,brand:string,color:string) {
     } else {
         return true;
     }
-
 }
 
 
@@ -89,11 +93,24 @@ function addWheels() {
             let wheelBrand = (<HTMLInputElement>document.getElementById('wheelBrand' + [i])).value; 
             let diameterValue = Number(wheelDiameter); 
             car.addWheel(new Wheel(diameterValue, wheelBrand));
+
+            let formWheels = <HTMLFormElement>document.getElementById('formWheels');
+            formWheels.reset();
+    
+            let inputs = Array.from(formWheels.querySelectorAll("input"));
+            inputs.forEach(function(input){
+                if(input.classList.contains("is-invalid")){
+                    input.classList.remove("is-invalid");
+                    
+                }
+            })
+
             let infoWheels = <HTMLElement>document.getElementById('infoWheels');
             infoWheels.innerHTML = `<p class="col-12 pt-3 font-weight-bold text-center text-success">ALL WHELLS HAVE BEEN SUCCESSFULLY ADDED</p>`;
             infoWheels.classList.remove("d-none");
         }
         console.log(car);
+        
     }
 }
 
@@ -110,15 +127,17 @@ function validateWheels(diameter: any, index: number, brand: any) {
         diameterElement.classList.add("is-invalid");
         errorDiametre.textContent = `Wheel ${index} diameter is required!`
         error++;
-    } else if (brand == "") {
-        brandElement.classList.add("is-invalid");
-        errorBrand.textContent = `Brand for wheel ${index} is required!`
-        error++;
     } else if (diameter < 0.4 || diameter > 2) {
         diameterElement.classList.add("is-invalid");
         errorDiametre.textContent = `Error value wheel ${index}: the diameter has to be between 0.4cm and 2cm.`
         error++;
     }
+    
+    if (brand == "") {
+        brandElement.classList.add("is-invalid");
+        errorBrand.textContent = `Brand for wheel ${index} is required!`
+        error++;
+    } 
 
     return error;
 }
@@ -126,7 +145,6 @@ function validateWheels(diameter: any, index: number, brand: any) {
 
 let formWheels = <HTMLElement>document.getElementById('formWheels');
 if (formWheels) {
-
     formWheels.addEventListener('blur', (event: any) => {
         if (event.target.value != '') event.target.classList.remove('is-invalid');
     }, true);

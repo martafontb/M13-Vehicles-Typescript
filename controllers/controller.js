@@ -1,6 +1,4 @@
 var car;
-var infoCar = document.getElementById('infoCar');
-var infoWheels = document.getElementById('infoWheels');
 function createCar() {
     //dom element definition
     var plate = document.getElementById("plate").value;
@@ -10,25 +8,31 @@ function createCar() {
     var formValidate = validateCar(plate, brand, color);
     if (formValidate === true) {
         car = new Car(plate, brand, color);
-        var infoCar_1 = document.getElementById('infoCar');
-        infoCar_1.classList.remove("d-none");
-        infoCar_1.innerHTML = "<p class=\"pt-3\"><span class=\"font-weight-bold\">Plate:</span> " + plate + "</p>\n        <p class=\"pt-3\"><span class=\"font-weight-bold\">Brand:</span> " + brand + "</p>\n        <p class=\"pt-3\"><span class=\"font-weight-bold\">Color:</span> " + color + "</p>";
+        var infoCar = document.getElementById('infoCar');
+        infoCar.classList.remove("d-none");
+        infoCar.innerHTML = "<p class=\"pt-3\"><span class=\"font-weight-bold\">Plate:</span> " + plate + "</p>\n        <p class=\"pt-3\"><span class=\"font-weight-bold\">Brand:</span> " + brand + "</p>\n        <p class=\"pt-3\"><span class=\"font-weight-bold\">Color:</span> " + color + "</p>";
         var formWheels_1 = document.getElementById('formWheels');
         formWheels_1.classList.remove("d-none");
+        var formCar = document.getElementById("formCar");
+        formCar.reset();
+        var inputs = Array.from(formCar.querySelectorAll("input"));
+        inputs.forEach(function (input) {
+            if (input.classList.contains("is-invalid")) {
+                input.classList.remove("is-invalid");
+            }
+        });
     }
 }
 function validateCar(plate, brand, color) {
     var error = 0;
-    var formCar = document.getElementById("formCar");
-    // form.classList.remove('is-invalid');
+    //4 numeros i tres lletres
+    var plate1 = /^(\d{4})([a-zA-Z]{3})$/;
     if (plate == "") {
         document.getElementById("plate").classList.add("is-invalid");
         document.getElementById("errorPlate").textContent = "Plate is required";
         error++;
     }
-    //4 numeros i tres lletres
-    var plate1 = /^(\d{4})([a-zA-Z]{3})$/;
-    if (!plate1.test(plate)) {
+    else if (!plate1.test(plate)) {
         document.getElementById("plate").classList.add("is-invalid");
         document.getElementById("errorPlate").textContent = "Plate must have 4 numbers & 3 letters";
         error++;
@@ -65,11 +69,19 @@ function addWheels() {
         for (var i = 1; i <= 4; i++) {
             var wheelDiameter = document.getElementById('wheelDiam' + [i]).value;
             var wheelBrand = document.getElementById('wheelBrand' + [i]).value;
-            var diameterValue = Number(wheelDiameter); // OJO DUPLICAT!!
+            var diameterValue = Number(wheelDiameter);
             car.addWheel(new Wheel(diameterValue, wheelBrand));
-            var infoWheels_1 = document.getElementById('infoWheels');
-            infoWheels_1.innerHTML = "<p class=\"col-12 pt-3 font-weight-bold text-center text-success\">ALL WHELLS HAVE BEEN SUCCESSFULLY ADDED</p>";
-            infoWheels_1.classList.remove("d-none");
+            var formWheels_2 = document.getElementById('formWheels');
+            formWheels_2.reset();
+            var inputs = Array.from(formWheels_2.querySelectorAll("input"));
+            inputs.forEach(function (input) {
+                if (input.classList.contains("is-invalid")) {
+                    input.classList.remove("is-invalid");
+                }
+            });
+            var infoWheels = document.getElementById('infoWheels');
+            infoWheels.innerHTML = "<p class=\"col-12 pt-3 font-weight-bold text-center text-success\">ALL WHELLS HAVE BEEN SUCCESSFULLY ADDED</p>";
+            infoWheels.classList.remove("d-none");
         }
         console.log(car);
     }
@@ -85,14 +97,14 @@ function validateWheels(diameter, index, brand) {
         errorDiametre.textContent = "Wheel " + index + " diameter is required!";
         error++;
     }
-    else if (brand == "") {
-        brandElement.classList.add("is-invalid");
-        errorBrand.textContent = "Brand for wheel " + index + " is required!";
-        error++;
-    }
     else if (diameter < 0.4 || diameter > 2) {
         diameterElement.classList.add("is-invalid");
         errorDiametre.textContent = "Error value wheel " + index + ": the diameter has to be between 0.4cm and 2cm.";
+        error++;
+    }
+    if (brand == "") {
+        brandElement.classList.add("is-invalid");
+        errorBrand.textContent = "Brand for wheel " + index + " is required!";
         error++;
     }
     return error;
