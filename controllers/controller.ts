@@ -1,4 +1,5 @@
 let car: Car;
+let cars: Array<{}> =[]
 
 function createCar() {
     //dom element definition
@@ -109,8 +110,10 @@ function addWheels() {
             infoWheels.innerHTML = `<p class="col-12 pt-3 font-weight-bold text-center text-success">ALL WHELLS HAVE BEEN SUCCESSFULLY ADDED</p>`;
             infoWheels.classList.remove("d-none");
         }
-        console.log(car);
-        
+        // console.log(car);
+        cars.push(car);
+        let list = <HTMLElement>document.getElementById('list');
+        list.innerHTML =  cars.map(car => `<li>${car}</li>`).join('')
     }
 }
 

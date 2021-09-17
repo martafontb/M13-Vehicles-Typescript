@@ -1,4 +1,5 @@
 var car;
+var cars = [];
 function createCar() {
     //dom element definition
     var plate = document.getElementById("plate").value;
@@ -83,7 +84,10 @@ function addWheels() {
             infoWheels.innerHTML = "<p class=\"col-12 pt-3 font-weight-bold text-center text-success\">ALL WHELLS HAVE BEEN SUCCESSFULLY ADDED</p>";
             infoWheels.classList.remove("d-none");
         }
-        console.log(car);
+        // console.log(car);
+        cars.push(car);
+        var list = document.getElementById('list');
+        list.innerHTML = cars.map(function (car) { return "<li>" + car + "</li>"; }).join('');
     }
 }
 function validateWheels(diameter, index, brand) {
