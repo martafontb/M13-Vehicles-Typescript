@@ -87,7 +87,7 @@ function addWheels() {
         // console.log(car);
         cars.push(car);
         var list = document.getElementById('list');
-        list.innerHTML = cars.map(function (car) { return "<li>" + car + "</li>"; }).join('');
+        list.innerHTML = cars.map(function (car) { return "<li>" + (car.plate + " " + car.brand + " " + car.color) + "</li>"; }).join('');
     }
 }
 function validateWheels(diameter, index, brand) {

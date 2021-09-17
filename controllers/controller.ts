@@ -1,5 +1,5 @@
 let car: Car;
-let cars: Array<{}> =[]
+let cars: Array<{[key: string]: any }> =[]
 
 function createCar() {
     //dom element definition
@@ -113,7 +113,7 @@ function addWheels() {
         // console.log(car);
         cars.push(car);
         let list = <HTMLElement>document.getElementById('list');
-        list.innerHTML =  cars.map(car => `<li>${car}</li>`).join('')
+        list.innerHTML =  cars.map(car => `<li>${car.plate + " " + car.brand + " " + car.color}</li>`).join('')
     }
 }
 
